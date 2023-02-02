@@ -3,6 +3,7 @@
 #include "inventorydialog.h"
 #include "requestwidget.h"
 #include "readerinfowidget.h"
+#include "bookholder.h"
 
 #include <QWidget>
 #include <QSqlQueryModel>
@@ -10,6 +11,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QSqlQuery>
+#include <QSqlQueryModel>
 
 LibrarianMode::LibrarianMode(QWidget *parent) :
     QWidget(parent),
@@ -82,13 +84,26 @@ void LibrarianMode::on_pushButton_5_clicked()
 
 void LibrarianMode::on_pushButton_6_clicked()
 {
+    QSqlQueryModel* debtors_model {new QSqlQueryModel};
+    debtors_model->setQuery("SELECT * FROM return_table "
+                            "WHERE DATE_FORMAT(return_date, \'%Y-%m-%d\') <= CURDATE()");
 
+    if (debtors_model->rowCount() == 0) {
+        QMessageBox::information(this, "No data", "There are no debtors");
+        return;
+    }
+
+    QTableView* table {new QTableView};
+    table->setModel(debtors_model);
+    table->setFixedWidth(table->columnWidth(1) * 5.5);
+    table->show();
 }
 
 
 void LibrarianMode::on_pushButton_7_clicked()
 {
-
+    BookHolder* widget {new BookHolder};
+    widget->show();
 }
 
 

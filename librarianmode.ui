@@ -29,7 +29,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Add/Inventorize book by info</string>
+      <string>Add new book / Inventorize by info</string>
      </property>
     </widget>
    </item>
@@ -48,7 +48,7 @@
       </size>
      </property>
      <property name="text">
-      <string>Inventorize book by book id</string>
+      <string>Inventorize copies</string>
      </property>
     </widget>
    </item>
