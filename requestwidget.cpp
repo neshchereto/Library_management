@@ -27,9 +27,7 @@ void RequestWidget::loadList()
     ui->tableView->setModel(requests_model);
 
     int colWidth = ui->tableView->columnWidth(1);
-    int vHeaderWidth = ui->tableView->verticalHeader()->width();
-    int tableWidth = vHeaderWidth + 4*colWidth;
-    ui->tableView->setFixedWidth(tableWidth);
+    ui->tableView->setFixedWidth(colWidth * 4.5);
 
     QSqlQueryModel* model {new QSqlQueryModel};
     model->setQuery("SELECT request_id FROM request");

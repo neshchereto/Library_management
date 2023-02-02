@@ -15,7 +15,11 @@ public:
     explicit ReaderInfoWidget(QWidget *parent = nullptr);
     ~ReaderInfoWidget();
 
+private slots:
+    void loadReaderInfo();
+
 private:
+
     Ui::ReaderInfoWidget *ui;
 };
 

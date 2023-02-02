@@ -6,12 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>371</height>
+    <width>439</width>
+    <height>501</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Readers</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -29,7 +35,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="idSpinBox"/>
+        <widget class="QComboBox" name="idComboBox"/>
        </item>
        <item>
         <spacer name="verticalSpacer">
@@ -53,7 +59,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QTableView" name="tableView_2"/>
+         <widget class="QTableView" name="readersTableView"/>
         </item>
        </layout>
       </widget>
@@ -165,6 +171,20 @@
           </property>
          </widget>
         </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Entry day</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="entryDayLabel">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -175,7 +195,7 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QTableView" name="tableView"/>
+         <widget class="QTableView" name="booksOnHandsTableView"/>
         </item>
        </layout>
       </widget>
