@@ -16,7 +16,7 @@ public:
     ~RequestWidget();
 
 private slots:
-    void loadList();
+    void loadTable();
 
     void on_acceptPushButton_clicked();
 

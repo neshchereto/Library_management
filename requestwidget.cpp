@@ -11,7 +11,7 @@ RequestWidget::RequestWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    loadList();
+    loadTable();
 }
 
 RequestWidget::~RequestWidget()
@@ -19,7 +19,7 @@ RequestWidget::~RequestWidget()
     delete ui;
 }
 
-void RequestWidget::loadList()
+void RequestWidget::loadTable()
 {
     QSqlQueryModel* requests_model {new QSqlQueryModel};
     requests_model->setQuery("SELECT * FROM request");
@@ -61,6 +61,6 @@ void RequestWidget::on_acceptPushButton_clicked()
 
     QMessageBox::information(this, "Success", "Successfully accepted.");
 
-    loadList();
+    loadTable();
 }
 

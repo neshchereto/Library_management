@@ -4,6 +4,7 @@
 #include "requestwidget.h"
 #include "readerinfowidget.h"
 #include "bookholder.h"
+#include "bookreturnwidget.h"
 
 #include <QWidget>
 #include <QSqlQueryModel>
@@ -109,6 +110,7 @@ void LibrarianMode::on_pushButton_7_clicked()
 
 void LibrarianMode::on_pushButton_8_clicked()
 {
-
+    BookReturnWidget* widget {new BookReturnWidget};
+    widget->show();
 }
 

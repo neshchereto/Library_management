@@ -12,6 +12,7 @@ CONFIG += c++17
 
 SOURCES += \
     bookholder.cpp \
+    bookreturnwidget.cpp \
     dbsetup.cpp \
     inventorydialog.cpp \
     librarianmode.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     bookholder.h \
+    bookreturnwidget.h \
     dbsetup.h \
     inventorydialog.h \
     librarianmode.h \
@@ -35,6 +37,7 @@ HEADERS += \
 
 FORMS += \
     bookholder.ui \
+    bookreturnwidget.ui \
     dbsetup.ui \
     inventorydialog.ui \
     librarianmode.ui \
