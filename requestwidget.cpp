@@ -21,23 +21,25 @@ RequestWidget::~RequestWidget()
 
 void RequestWidget::loadTable()
 {
+    ui->idLabel->setText("*Double click on request*");
+
     QSqlQueryModel* requests_model {new QSqlQueryModel};
     requests_model->setQuery("SELECT * FROM request");
-
     ui->tableView->setModel(requests_model);
+    ui->tableView->setMinimumWidth(ui->tableView->columnWidth(0)
+                                 * requests_model->columnCount()
+                                 + 10);
+}
 
-    int colWidth = ui->tableView->columnWidth(1);
-    ui->tableView->setFixedWidth(colWidth * 4.5);
-
-    QSqlQueryModel* model {new QSqlQueryModel};
-    model->setQuery("SELECT request_id FROM request");
-
-    ui->comboBox->setModel(model);
+void RequestWidget::on_tableView_activated(const QModelIndex &index)
+{
+    const QString request_id {ui->tableView->model()->index(index.row(), 0).data().toString()};
+    ui->idLabel->setText(request_id);
 }
 
 void RequestWidget::on_acceptPushButton_clicked()
 {
-    QString request_id {ui->comboBox->currentText()};
+    const QString request_id {ui->idLabel->text()};
 
     QSqlQuery query;
     query.exec("SELECT inventoryed_id, reader_id FROM request "
@@ -63,4 +65,3 @@ void RequestWidget::on_acceptPushButton_clicked()
 
     loadTable();
 }
-
