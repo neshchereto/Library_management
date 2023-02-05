@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RequestWidget</class>
- <widget class="QWidget" name="RequestWidget">
+ <class>InventorizeCopiesWidget</class>
+ <widget class="QWidget" name="InventorizeCopiesWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>477</width>
+    <height>328</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Requests</string>
+   <string>Inventorize copies</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Request id choosed:</string>
+        <string>Book id choosed:</string>
        </property>
       </widget>
      </item>
@@ -32,7 +32,7 @@
         <enum>QFrame::Plain</enum>
        </property>
        <property name="text">
-        <string>*Double click on request*</string>
+        <string>*Double click on book*</string>
        </property>
        <property name="scaledContents">
         <bool>false</bool>
@@ -50,44 +50,21 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Return after</string>
+        <string>Number of copies</string>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QSpinBox" name="timeSpinBox">
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>50</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="periodComboBox">
-         <item>
-          <property name="text">
-           <string>DAY</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MONTH</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>YEAR</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QSpinBox" name="spinBox"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="inventorizePushButton">
+       <property name="text">
+        <string>Inventorize</string>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -102,17 +79,20 @@
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QPushButton" name="acceptPushButton">
-       <property name="text">
-        <string>Accept</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
-    <widget class="QTableView" name="tableView"/>
+    <widget class="QTableView" name="tableView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <attribute name="horizontalHeaderVisible">
+      <bool>true</bool>
+     </attribute>
+    </widget>
    </item>
   </layout>
  </widget>

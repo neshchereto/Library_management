@@ -3,11 +3,11 @@
 #include "inventorydialog.h"
 #include "requestwidget.h"
 #include "readerinfowidget.h"
-#include "bookholder.h"
+#include "bookholderwidget.h"
 #include "bookreturnwidget.h"
+#include "inventorizecopieswidget.h"
 
 #include <QWidget>
-#include <QSqlQueryModel>
 #include <QTableView>
 #include <QInputDialog>
 #include <QMessageBox>
@@ -36,36 +36,8 @@ void LibrarianMode::on_pushButton_clicked()
 
 void LibrarianMode::on_pushButton_2_clicked()
 {
-    bool ok;
-    const int book_id {QInputDialog::getInt(this, "Book ID",
-                                            "Enter book_id: ", 1, 1, 1000000, 1, &ok)};
-
-    if (!ok) {
-        return;
-    }
-
-    QSqlQuery query;
-    query.exec("SELECT book_id FROM book "
-               "WHERE book_id = " + QString::number(book_id));
-
-    // Check if book with such id exists.
-    if (!query.next()) {
-        QMessageBox::critical(this, "Error", "There is no book with such id.");
-        return;
-    }
-
-    const int number_of_copies {QInputDialog::getInt(this, "Copies",
-                                                     "Enter number of copies: ", 1, 1, 500, 1, &ok)};
-
-    if (ok) {
-        for (int i {}; i != number_of_copies; ++i) {
-            QSqlQuery query6;
-            query6.exec("INSERT INTO card (book_id) "
-                        "VALUES (" + QString::number(book_id) + ")");
-        }
-
-        QMessageBox::information(this, "Success", "New book was inserted.");
-    }
+    InventorizeCopiesWidget* widget {new InventorizeCopiesWidget};
+    widget->show();
 }
 
 
@@ -91,19 +63,20 @@ void LibrarianMode::on_pushButton_6_clicked()
 
     if (debtors_model->rowCount() == 0) {
         QMessageBox::information(this, "No data", "There are no debtors");
-        return;
+    } else {
+        QTableView* table {new QTableView};
+        table->setModel(debtors_model);
+        table->setMinimumWidth(table->columnWidth(0)
+                            * debtors_model->columnCount()
+                            + 20);
+        table->show();
     }
-
-    QTableView* table {new QTableView};
-    table->setModel(debtors_model);
-    table->setFixedWidth(table->columnWidth(1) * 5.5);
-    table->show();
 }
 
 
 void LibrarianMode::on_pushButton_7_clicked()
 {
-    BookHolder* widget {new BookHolder};
+    BookHolderWidget* widget {new BookHolderWidget};
     widget->show();
 }
 

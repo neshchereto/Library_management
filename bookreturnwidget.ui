@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Book return</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -19,14 +19,14 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Inventory id choosed:</string>
+        <string>Return id choosed:</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="idLabel">
        <property name="text">
-        <string>*SELECT COPY*</string>
+        <string>*Double click on copy*</string>
        </property>
       </widget>
      </item>

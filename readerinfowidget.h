@@ -16,7 +16,7 @@ public:
     ~ReaderInfoWidget();
 
 private slots:
-    void loadReaderInfo();
+    void on_readersTableView_activated(const QModelIndex &index);
 
 private:
 

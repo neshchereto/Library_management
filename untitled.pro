@@ -11,9 +11,10 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    bookholder.cpp \
+    bookholderwidget.cpp \
     bookreturnwidget.cpp \
     dbsetup.cpp \
+    inventorizecopieswidget.cpp \
     inventorydialog.cpp \
     librarianmode.cpp \
     main.cpp \
@@ -24,9 +25,10 @@ SOURCES += \
     widget.cpp
 
 HEADERS += \
-    bookholder.h \
+    bookholderwidget.h \
     bookreturnwidget.h \
     dbsetup.h \
+    inventorizecopieswidget.h \
     inventorydialog.h \
     librarianmode.h \
     readerinfowidget.h \
@@ -36,9 +38,10 @@ HEADERS += \
     widget.h
 
 FORMS += \
-    bookholder.ui \
+    bookholderwidget.ui \
     bookreturnwidget.ui \
     dbsetup.ui \
+    inventorizecopieswidget.ui \
     inventorydialog.ui \
     librarianmode.ui \
     readerinfowidget.ui \

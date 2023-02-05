@@ -53,7 +53,6 @@ void InventoryDialog::on_buttonBox_accepted()
         view->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
         view->show();
 
-
         bool ok;
         const int udk_id {QInputDialog::getInt(this, "FIRST COPY OF THE BOOK",
                                                "Enter UDK ID of book: ", 1, 1, 9, 1, &ok)};

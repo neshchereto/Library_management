@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QSortFilterProxyModel>
 
 BookReturnWidget::BookReturnWidget(QWidget *parent) :
     QWidget(parent),
@@ -22,22 +23,7 @@ BookReturnWidget::~BookReturnWidget()
 
 void BookReturnWidget::on_tableView_activated(const QModelIndex &index)
 {
-    QString val {ui->tableView->model()->data(index).toString()};
-
-    // Change date format to MySQL like.
-    QString date_string {val};
-    QDate::fromString(date_string, "yyyy-MM-dd");
-
-    QSqlQuery query;
-    query.exec("SELECT return_id FROM return_table "
-               "WHERE return_id = "    + val +
-               " OR reader_id = "      + val +
-               " OR inventoryed_id = " + val +
-               " OR issue_date = '"    + date_string +
-               "' OR return_date = '"  + date_string + "'");
-    query.next();
-    QString return_id {query.value(0).toString()};
-
+    const QString return_id {ui->tableView->model()->index(index.row(), 0).data().toString()};
     ui->idLabel->setText(return_id);
 }
 
@@ -61,10 +47,13 @@ void BookReturnWidget::loadTable()
 {
     QSqlQueryModel* books_on_hands_model {new QSqlQueryModel};
     books_on_hands_model->setQuery("SELECT * FROM return_table");
-
-    ui->tableView->setModel(books_on_hands_model);
-    ui->tableView->setMinimumWidth(ui->tableView->verticalHeader()->width()
-                                 + ui->tableView->columnWidth(0)
-                                 * books_on_hands_model->columnCount());
+    QSortFilterProxyModel* proxy_model {new QSortFilterProxyModel};
+    proxy_model->setSourceModel(books_on_hands_model);
+    ui->tableView->setModel(proxy_model);
+    ui->tableView->setSortingEnabled(true);
+    ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+    ui->tableView->setMinimumWidth(ui->tableView->columnWidth(0)
+                                 * books_on_hands_model->columnCount()
+                                 + 20);
 }
 

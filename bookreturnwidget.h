@@ -20,9 +20,9 @@ private slots:
 
     void on_returnPushButton_clicked();
 
+private:
     void loadTable();
 
-private:
     Ui::BookReturnWidget *ui;
 };
 

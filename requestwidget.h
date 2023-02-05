@@ -20,6 +20,8 @@ private slots:
 
     void on_acceptPushButton_clicked();
 
+    void on_tableView_activated(const QModelIndex &index);
+
 private:
     Ui::RequestWidget *ui;
 };
