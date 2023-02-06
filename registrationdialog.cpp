@@ -19,6 +19,7 @@ RegistrationDialog::RegistrationDialog(QWidget *parent) :
     connect(ui->addressLineEdit , SIGNAL(textChanged(QString)), this, SLOT(onTextChanged()));
     connect(ui->mobileLineEdit  , SIGNAL(textChanged(QString)), this, SLOT(onTextChanged()));
     connect(ui->birthdayLineEdit, SIGNAL(textChanged(QString)), this, SLOT(onTextChanged()));
+    connect(ui->passwordLineEdit, SIGNAL(textChanged(QString)), this, SLOT(onTextChanged()));
 }
 
 RegistrationDialog::~RegistrationDialog()
@@ -33,19 +34,21 @@ void RegistrationDialog::onTextChanged()
                                                          && !ui->passportLineEdit->text().isEmpty()
                                                          && !ui->addressLineEdit ->text().isEmpty()
                                                          && !ui->mobileLineEdit  ->text().isEmpty()
-                                                         && !ui->birthdayLineEdit->text().isEmpty());
+                                                         && !ui->birthdayLineEdit->text().isEmpty()
+                                                         && !ui->passwordLineEdit->text().isEmpty());
 }
 
 void RegistrationDialog::on_buttonBox_accepted()
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO reader (full_name, passport, address, mobile, birthday, entry_day)"
+    query.prepare("INSERT INTO reader (full_name, passport, address, mobile, birthday, entry_day, password)"
                   "VALUES ('" + ui->fullNameLineEdit->text() + "', '"
                               + ui->passportLineEdit->text() + "', '"
                               + ui->addressLineEdit ->text() + "', '"
                               + ui->mobileLineEdit  ->text() + "', '"
                               + ui->birthdayLineEdit->text() + "', "
-                              + "CURDATE())");
+                              + "CURDATE(), '"
+                              + ui->passwordLineEdit->text() + "')");
 
     // query.exec() returns true if inserted, false if not
     if (query.exec()) {

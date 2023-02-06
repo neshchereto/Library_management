@@ -23,8 +23,6 @@ private slots:
 private:
     inline static const QString password {"1111"};
 
-    QWidget* mode;
-
     Ui::Widget *ui;
 };
 

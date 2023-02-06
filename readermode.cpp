@@ -15,12 +15,6 @@ ReaderMode::~ReaderMode()
     delete ui;
 }
 
-void ReaderMode::on_pushButton_clicked()
-{
-    RegistrationDialog dialog;
-    dialog.exec();
-}
-
 
 void ReaderMode::on_pushButton_2_clicked()
 {

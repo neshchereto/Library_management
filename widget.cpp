@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
 #include "dbsetup.h"
+#include "readersignindialog.h"
 
 #include "librarianmode.h"
 #include "readermode.h"
@@ -34,12 +35,13 @@ void Widget::on_DBSetupPushButton_clicked()
 
 void Widget::on_openMenuPushButton_clicked()
 {
+    QWidget* mode {};
+
     if (ui->librarianRadioButton->isChecked()) {
         bool ok;
         QString inputed_password {QInputDialog::getText(this, "Password",
                                                         "Enter password:", QLineEdit::Normal,
                                                         "", &ok)};
-
         if (!ok) {
             return;
         }
@@ -51,10 +53,13 @@ void Widget::on_openMenuPushButton_clicked()
             return;
         }
     } else {
-        //TODO READER ID AND PASSWORD
-
-        mode = new ReaderMode;
+        ReaderSignInDialog* dialog {new ReaderSignInDialog(this)};
+        if (dialog->exec() == QMessageBox::Accepted) {
+            mode = new ReaderMode;
+        }
     }
 
-    mode->show();
+    if (mode != nullptr) {
+        mode->show();
+    }
 }

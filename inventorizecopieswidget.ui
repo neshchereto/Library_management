@@ -60,13 +60,6 @@
       <widget class="QSpinBox" name="spinBox"/>
      </item>
      <item>
-      <widget class="QPushButton" name="inventorizePushButton">
-       <property name="text">
-        <string>Inventorize</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -78,6 +71,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="inventorizePushButton">
+       <property name="text">
+        <string>Inventorize</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

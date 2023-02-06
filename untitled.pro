@@ -12,6 +12,7 @@ CONFIG += c++17
 
 SOURCES += \
     bookholderwidget.cpp \
+    bookrequestwidget.cpp \
     bookreturnwidget.cpp \
     dbsetup.cpp \
     inventorizecopieswidget.cpp \
@@ -20,12 +21,14 @@ SOURCES += \
     main.cpp \
     readerinfowidget.cpp \
     readermode.cpp \
+    readersignindialog.cpp \
     registrationdialog.cpp \
     requestwidget.cpp \
     widget.cpp
 
 HEADERS += \
     bookholderwidget.h \
+    bookrequestwidget.h \
     bookreturnwidget.h \
     dbsetup.h \
     inventorizecopieswidget.h \
@@ -33,12 +36,14 @@ HEADERS += \
     librarianmode.h \
     readerinfowidget.h \
     readermode.h \
+    readersignindialog.h \
     registrationdialog.h \
     requestwidget.h \
     widget.h
 
 FORMS += \
     bookholderwidget.ui \
+    bookrequestwidget.ui \
     bookreturnwidget.ui \
     dbsetup.ui \
     inventorizecopieswidget.ui \
@@ -46,6 +51,7 @@ FORMS += \
     librarianmode.ui \
     readerinfowidget.ui \
     readermode.ui \
+    readersignindialog.ui \
     registrationdialog.ui \
     requestwidget.ui \
     widget.ui

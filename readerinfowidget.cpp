@@ -20,8 +20,7 @@ ReaderInfoWidget::ReaderInfoWidget(QWidget *parent) :
     ui->readersTableView->setSortingEnabled(true);
     ui->readersTableView->sortByColumn(0, Qt::AscendingOrder);
     ui->readersTableView->setMinimumWidth(ui->readersTableView->columnWidth(0)
-                                        * readers_model->columnCount()
-                                        + 50);
+                                        * readers_model->columnCount());
 }
 
 ReaderInfoWidget::~ReaderInfoWidget()
