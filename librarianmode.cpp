@@ -59,7 +59,7 @@ void LibrarianMode::on_pushButton_6_clicked()
 {
     QSqlQueryModel* debtors_model {new QSqlQueryModel};
     debtors_model->setQuery("SELECT * FROM return_table "
-                            "WHERE DATE_FORMAT(return_date, \'%Y-%m-%d\') <= CURDATE()");
+                            "WHERE DATE_FORMAT(return_date, \'%Y-%m-%d\') < CURDATE()");
 
     if (debtors_model->rowCount() == 0) {
         QMessageBox::information(this, "No data", "There are no debtors");

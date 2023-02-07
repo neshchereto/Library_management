@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>334</width>
+    <width>275</width>
     <height>180</height>
    </rect>
   </property>
@@ -67,7 +67,7 @@
       <item>
        <widget class="QRadioButton" name="readerRadioButton">
         <property name="text">
-         <string>Reader</string>
+         <string>Reader (Show library, request book)</string>
         </property>
        </widget>
       </item>

@@ -52,7 +52,14 @@ void RegistrationDialog::on_buttonBox_accepted()
 
     // query.exec() returns true if inserted, false if not
     if (query.exec()) {
-        QMessageBox::information(this, "Success", "Account was created.");
+        QSqlQuery query2;
+        // passport is unique value, so I use it to find reader_id
+        query2.exec("SELECT reader_id FROM reader "
+                    "WHERE passport = '" + ui->passportLineEdit->text() + "'");
+        query2.next();
+        QMessageBox::information(this, "Success", "Account was created."
+                                                  "\nYour reader id is "
+                                                + query2.value(0).toString() + ".");
     } else {
         QMessageBox::critical(this, "Error", query.lastError().text());
     }

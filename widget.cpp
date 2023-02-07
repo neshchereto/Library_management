@@ -40,7 +40,7 @@ void Widget::on_openMenuPushButton_clicked()
     if (ui->librarianRadioButton->isChecked()) {
         bool ok;
         QString inputed_password {QInputDialog::getText(this, "Password",
-                                                        "Enter password:", QLineEdit::Normal,
+                                                        "Enter password:", QLineEdit::Password,
                                                         "", &ok)};
         if (!ok) {
             return;

@@ -38,6 +38,9 @@
        <property name="maxLength">
         <number>20</number>
        </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
       </widget>
      </item>
     </layout>
