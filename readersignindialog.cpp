@@ -24,16 +24,17 @@ ReaderSignInDialog::~ReaderSignInDialog()
 
 void ReaderSignInDialog::onTextChanged()
 {
-    // IF ALL LINE EDITS ARE FILLED THAN SET "Ok" BUTTON ENABLED
+    // If all lineEdits are filled thenn set "Ok" button enabled
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!ui->idLineEdit      ->text().isEmpty()
                                                          && !ui->passwordLineEdit->text().isEmpty());
 }
 
 void ReaderSignInDialog::on_buttonBox_accepted()
 {
+    m_reader_id = ui->idLineEdit->text();
     QSqlQuery query;
     query.exec("SELECT password FROM reader "
-               "WHERE reader_id = " + ui->idLineEdit->text());
+               "WHERE reader_id = " + m_reader_id);
     query.next();
     QString password {query.value(0).toString()};
 

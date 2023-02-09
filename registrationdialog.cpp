@@ -29,7 +29,7 @@ RegistrationDialog::~RegistrationDialog()
 
 void RegistrationDialog::onTextChanged()
 {
-    // IF ALL LINE EDITS ARE FILLED THAN SET "Ok" BUTTON ENABLED
+    // If all lineEdits are filled thenn set "Ok" button enabled
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!ui->fullNameLineEdit->text().isEmpty()
                                                          && !ui->passportLineEdit->text().isEmpty()
                                                          && !ui->addressLineEdit ->text().isEmpty()

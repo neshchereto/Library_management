@@ -15,6 +15,8 @@ public:
     explicit ReaderSignInDialog(QWidget *parent = nullptr);
     ~ReaderSignInDialog();
 
+    QString m_reader_id;
+
 private slots:
     void on_buttonBox_accepted();
 

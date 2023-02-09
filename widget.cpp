@@ -24,9 +24,7 @@ Widget::~Widget()
 void Widget::on_DBSetupPushButton_clicked()
 {
     DBSetup* db_setup {new DBSetup(this)};
-    db_setup->exec();
-
-    if (db_setup->connected) {
+    if (db_setup->exec()) {
         ui->openMenuPushButton->setEnabled(true);
     } else {
         ui->openMenuPushButton->setEnabled(false);
@@ -55,7 +53,7 @@ void Widget::on_openMenuPushButton_clicked()
     } else {
         ReaderSignInDialog* dialog {new ReaderSignInDialog(this)};
         if (dialog->exec() == QMessageBox::Accepted) {
-            mode = new ReaderMode;
+            mode = new ReaderMode(dialog->m_reader_id);
         }
     }
 

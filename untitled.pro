@@ -12,7 +12,6 @@ CONFIG += c++17
 
 SOURCES += \
     bookholderwidget.cpp \
-    bookrequestwidget.cpp \
     bookreturnwidget.cpp \
     dbsetup.cpp \
     inventorizecopieswidget.cpp \
@@ -28,7 +27,6 @@ SOURCES += \
 
 HEADERS += \
     bookholderwidget.h \
-    bookrequestwidget.h \
     bookreturnwidget.h \
     dbsetup.h \
     inventorizecopieswidget.h \
@@ -43,7 +41,6 @@ HEADERS += \
 
 FORMS += \
     bookholderwidget.ui \
-    bookrequestwidget.ui \
     bookreturnwidget.ui \
     dbsetup.ui \
     inventorizecopieswidget.ui \

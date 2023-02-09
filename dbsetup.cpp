@@ -26,12 +26,12 @@ void DBSetup::on_buttonBox_accepted()
     db.setPassword    (ui->passwordLineEdit->text());
     db.setHostName    (ui->serverLineEdit  ->text());
 
-    if (!db.open()) {
-        QMessageBox::critical(this, "Error", db.lastError().text());
-        connected = false;
-    } else {
+    if (db.open()) {
         QMessageBox::information(this, "Success", "Connected to data base.");
-        connected = true;
+        return accept();
+    } else {
+        QMessageBox::critical(this, "Error", db.lastError().text());
+        return reject();
     }
 }
 
