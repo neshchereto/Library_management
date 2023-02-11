@@ -19,8 +19,12 @@ ReaderInfoWidget::ReaderInfoWidget(QWidget *parent) :
     ui->readersTableView->setModel(proxy_model);
     ui->readersTableView->setSortingEnabled(true);
     ui->readersTableView->sortByColumn(0, Qt::AscendingOrder);
+
+    ui->readersTableView->verticalHeader()->setVisible(false); // remove indexes on leftside
+    ui->readersTableView->setColumnWidth(1, 200);
     ui->readersTableView->setMinimumWidth(ui->readersTableView->columnWidth(0)
-                                        * readers_model->columnCount());
+                                        + ui->readersTableView->columnWidth(1)
+                                        + 20);
 }
 
 ReaderInfoWidget::~ReaderInfoWidget()
@@ -51,6 +55,8 @@ void ReaderInfoWidget::on_readersTableView_activated(const QModelIndex &index)
                                    "JOIN book b ON c.book_id = b.book_id "
                                    "WHERE reader_id = " + reader_id);
     ui->booksOnHandsTableView->setModel(books_on_hands_model);
+
+    ui->booksOnHandsTableView->verticalHeader()->setVisible(false); // remove indexes on leftside
     ui->booksOnHandsTableView->setMinimumWidth(ui->booksOnHandsTableView->columnWidth(0)
                                            * books_on_hands_model->columnCount()
                                            + 30);

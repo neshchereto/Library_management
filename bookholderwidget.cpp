@@ -18,9 +18,11 @@ BookHolderWidget::BookHolderWidget(QWidget *parent) :
     ui->tableView->setModel(proxy_model);
     ui->tableView->setSortingEnabled(true);
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+
+    ui->tableView->verticalHeader()->setVisible(false);
     ui->tableView->setMinimumWidth(ui->tableView->columnWidth(0)
                                  * books_on_hands_model->columnCount()
-                                 + 30);
+                                 + 15);
 }
 
 BookHolderWidget::~BookHolderWidget()

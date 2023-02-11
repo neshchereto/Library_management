@@ -22,10 +22,7 @@ ReaderMode::ReaderMode(const QString& reader_id, QWidget *parent)
                                          "(SELECT GROUP_CONCAT(DISTINCT a.full_name SEPARATOR ', ') "
                                          "FROM  author_book ab "
                                          "JOIN  author a ON ab.author_id = a.author_id "
-                                         "WHERE ab.book_id = b.book_id) AS 'authors', "
-                                         "(SELECT GROUP_CONCAT(DISTINCT card.inventoryed_id SEPARATOR ', ') "
-                                         "FROM  card "
-                                         "WHERE card.book_id = b.book_id) AS 'inventoryed ids' "
+                                         "WHERE ab.book_id = b.book_id) AS 'authors' "
                                      "FROM card "
                                      "JOIN book b ON card.book_id = b.book_id "
                                      "JOIN udk_thematic ut "
@@ -67,10 +64,10 @@ ReaderMode::ReaderMode(const QString& reader_id, QWidget *parent)
     });
 
     ui->tableView->setModel(topic_filter_model);
-    ui->tableView->verticalHeader()->setVisible(false); // remove indexes on leftside
     ui->tableView->setSortingEnabled(true);
     ui->tableView->sortByColumn(1, Qt::AscendingOrder); // sort by title (alphabetically)
 
+    ui->tableView->verticalHeader()->setVisible(false); // remove indexes on leftside
     ui->tableView->setColumnHidden(0, true);
     ui->tableView->setColumnWidth(1, 250);
     ui->tableView->setColumnWidth(3, 200);
@@ -79,7 +76,6 @@ ReaderMode::ReaderMode(const QString& reader_id, QWidget *parent)
                                  + ui->tableView->columnWidth(2)
                                  + ui->tableView->columnWidth(3)
                                  + ui->tableView->columnWidth(4)
-                                 + ui->tableView->columnWidth(5)
                                  + 25);
 }
 
@@ -91,22 +87,27 @@ ReaderMode::~ReaderMode()
 void ReaderMode::on_tableView_activated(const QModelIndex &index)
 {
     const QString book_id {ui->tableView->model()->index(index.row(), 0).data().toString()};
+    const QString title   {ui->tableView->model()->index(index.row(), 1).data().toString()};
 
     QSqlQueryModel* ids_model {new QSqlQueryModel};
-    ids_model->setQuery("SELECT inventoryed_id FROM card "
-                        "WHERE book_id = " + book_id);
+    // Reader can only see inventoryed ids that are not on others readers' hands
+    ids_model->setQuery("SELECT c.inventoryed_id FROM card c "
+                        "LEFT JOIN return_table rt ON rt.inventoryed_id = c.inventoryed_id "
+                        "WHERE c.book_id = " + book_id + " AND rt.inventoryed_id IS NULL");
     ui->idComboBox->setModel(ids_model);
 
+    ui->titleLabel->setText(title.left(22) + (title.count() > 22 ? "..." : "")); // Show first 22 chars of title
     ui->pushButton->setEnabled(true);
+    ui->idComboBox->setEnabled(true);
 }
 
 
 void ReaderMode::on_pushButton_clicked()
 {
-    QSqlQuery query("INSERT INTO request (reader_id, inventoryed_id, request_date) VALUES ("
+    QSqlQuery query{"INSERT INTO request (reader_id, inventoryed_id, request_date) VALUES ("
                   + m_reader_id + ", "
                   + ui->idComboBox->currentText() + ", "
-                  + "CURDATE())");
+                  + "CURDATE())"};
 
     if (query.exec()) {
         QMessageBox::information(this, "Success", "The book was requested.");
@@ -114,4 +115,3 @@ void ReaderMode::on_pushButton_clicked()
         QMessageBox::critical(this, "Error", "The book was NOT requested.");
     }
 }
-

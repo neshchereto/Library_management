@@ -23,8 +23,11 @@ BookReturnWidget::~BookReturnWidget()
 
 void BookReturnWidget::on_tableView_activated(const QModelIndex &index)
 {
-    const QString return_id {ui->tableView->model()->index(index.row(), 0).data().toString()};
-    ui->idLabel->setText(return_id);
+    // Set return_id as idLabel text
+    ui->idLabel->setText(
+                ui->tableView->model()->index(index.row(), 0).data().toString());
+
+    ui->returnPushButton->setEnabled(true);
 }
 
 
@@ -35,12 +38,13 @@ void BookReturnWidget::on_returnPushButton_clicked()
                     "WHERE return_id = " + ui->idLabel->text()))
     {
         QMessageBox::information(this, "Success", "Book was returned.");
+        ui->idLabel->setText("*Select a copy*");
+        ui->returnPushButton->setEnabled(false); // id is not choosed, so disable button
     } else {
         QMessageBox::critical(this, "Error", "Book was NOT returned.");
     }
 
-    // Update table after deleting
-    loadTable();
+    loadTable(); // Update table after data erasing
 }
 
 void BookReturnWidget::loadTable()
@@ -52,6 +56,8 @@ void BookReturnWidget::loadTable()
     ui->tableView->setModel(proxy_model);
     ui->tableView->setSortingEnabled(true);
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+
+    ui->tableView->verticalHeader()->setVisible(false);
     ui->tableView->setMinimumWidth(ui->tableView->columnWidth(0)
                                  * books_on_hands_model->columnCount()
                                  + 20);

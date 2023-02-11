@@ -32,7 +32,7 @@
         <enum>QFrame::Plain</enum>
        </property>
        <property name="text">
-        <string>*Double click on book*</string>
+        <string>*Select a book*</string>
        </property>
        <property name="scaledContents">
         <bool>false</bool>
@@ -57,7 +57,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinBox"/>
+      <widget class="QSpinBox" name="spinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+      </widget>
      </item>
      <item>
       <spacer name="verticalSpacer">
@@ -74,6 +78,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="inventorizePushButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Inventorize</string>
        </property>

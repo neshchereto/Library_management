@@ -46,7 +46,6 @@ void InventoryDialog::on_buttonBox_accepted()
     if (!query.next()) {
         QSqlQueryModel* model {new QSqlQueryModel};
         model->setQuery("SELECT * FROM udk_thematic");
-
         QTableView* view {new QTableView};
         view->setModel(model);
         view->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -62,9 +61,16 @@ void InventoryDialog::on_buttonBox_accepted()
             return;
         }
         // Add the book
-        QSqlQuery query2;
-        query2.exec("INSERT INTO book (title, edition, udk_id) "
-                    "VALUES ('" + title + "', '" + edition + "', " + QString::number(udk_id) +")");
+        QSqlQuery query2{"INSERT INTO book (title, edition, udk_id) "
+                         "VALUES ('" + title + "', '"
+                                     + edition + "', "
+                                     + QString::number(udk_id) +")"};
+        if (query2.exec()) {
+            QMessageBox::information(this, "Success", "The book was added.");
+        } else {
+            QMessageBox::critical(this, "Error", "The book was not added.\nCheck DB connection.");
+            return;
+        }
     }
 
     // Connect the book and authors

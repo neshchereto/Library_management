@@ -19,6 +19,8 @@ InventorizeCopiesWidget::InventorizeCopiesWidget(QWidget *parent) :
     ui->tableView->setModel(proxy_model);
     ui->tableView->setSortingEnabled(true);
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
+
+    ui->tableView->verticalHeader()->setVisible(false); // remove indexes on leftside
     ui->tableView->setMinimumWidth(ui->tableView->columnWidth(0)
                                  * books_on_hands_model->columnCount()
                                  + 50);
@@ -31,8 +33,11 @@ InventorizeCopiesWidget::~InventorizeCopiesWidget()
 
 void InventorizeCopiesWidget::on_tableView_activated(const QModelIndex &index)
 {
-    const QString book_id {ui->tableView->model()->index(index.row(), 0).data().toString()};
-    ui->idLabel->setText(book_id);
+    // Set book_id as idLabel text
+    ui->idLabel->setText(
+                ui->tableView->model()->index(index.row(), 0).data().toString());
+
+    ui->inventorizePushButton->setEnabled(true);
 }
 
 void InventorizeCopiesWidget::on_inventorizePushButton_clicked()
@@ -48,6 +53,7 @@ void InventorizeCopiesWidget::on_inventorizePushButton_clicked()
 
     if (ok) {
         QMessageBox::information(this, "Success", "Copies were inventorized.");
+
     } else {
         QMessageBox::critical(this, "Error", "Error occured. "
                                              "Some copies might be inventorized.");
