@@ -1,6 +1,7 @@
 #include "requestwidget.h"
 #include "ui_requestwidget.h"
 
+#include <QSqlError>
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
@@ -12,6 +13,8 @@ RequestWidget::RequestWidget(QWidget *parent) :
     ui->setupUi(this);
 
     loadTable();
+
+    ui->tableView->verticalHeader()->setVisible(false); // remove indexes on leftside
 }
 
 RequestWidget::~RequestWidget()
@@ -27,7 +30,6 @@ void RequestWidget::loadTable()
     requests_model->setQuery("SELECT * FROM request");
     ui->tableView->setModel(requests_model);
 
-    ui->tableView->verticalHeader()->setVisible(false); // remove indexes on leftside
     ui->tableView->setMinimumWidth(ui->tableView->columnWidth(0)
                                  * requests_model->columnCount()
                                  + 10);
@@ -46,28 +48,27 @@ void RequestWidget::on_acceptPushButton_clicked()
 {
     const QString request_id {ui->idLabel->text()};
 
-    QSqlQuery query;
-    query.exec("SELECT inventoryed_id, reader_id FROM request "
-               "WHERE request_id = " + request_id);
+    QSqlQuery query{"SELECT inventoryed_id, reader_id FROM request "
+                    "WHERE request_id = " + request_id};
     query.next();
     QString inventoryed_id {query.value(0).toString()};
     QString reader_id      {query.value(1).toString()};
 
-    QSqlQuery query2{"INSERT INTO return_table (inventoryed_id, issue_date, return_date, reader_id) "
-                     "VALUES (" + inventoryed_id
-                                + ", CURDATE(), "
-                                + "CURDATE() + INTERVAL "
-                                + QString::number(ui->timeSpinBox->value()) + " "
-                                + ui->periodComboBox->currentText() + ", "
-                                + reader_id + ")"};
+    QSqlQuery query2;
+    query2.prepare("INSERT INTO return_table (inventoryed_id, issue_date, return_date, reader_id) "
+                   "VALUES (" + inventoryed_id
+                              + ", CURDATE(), "
+                              + "CURDATE() + INTERVAL "
+                              + QString::number(ui->timeSpinBox->value()) + " "
+                              + ui->periodComboBox->currentText() + ", "
+                              + reader_id + ")");
     if (query2.exec()) {
         QMessageBox::information(this, "Success", "Successfully accepted.");
-        QSqlQuery query3;
-        query3.exec("DELETE FROM request "
-                    "WHERE request_id = " + request_id);
+        QSqlQuery query3{"DELETE FROM request "
+                         "WHERE request_id = " + request_id};
         loadTable(); // update after erasing.
         ui->acceptPushButton->setEnabled(false); // id is not choosed, so disable button
     } else {
-        QMessageBox::information(this, "Success", "Successfully accepted.");
+        QMessageBox::critical(this, "Error", query2.lastError().text());
     }
 }

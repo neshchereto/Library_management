@@ -1,6 +1,6 @@
 #include "librarianmode.h"
 #include "ui_librarianmode.h"
-#include "inventorydialog.h"
+#include "inventorizebookwidget.h"
 #include "requestwidget.h"
 #include "readerinfowidget.h"
 #include "bookholderwidget.h"
@@ -29,8 +29,8 @@ LibrarianMode::~LibrarianMode()
 
 void LibrarianMode::on_pushButton_clicked()
 {
-    InventoryDialog* dialog {new InventoryDialog};
-    dialog->exec();
+    InventorizeBookWidget* dialog {new InventorizeBookWidget};
+    dialog->show();
 }
 
 

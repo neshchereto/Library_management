@@ -32,9 +32,8 @@ void ReaderSignInDialog::onTextChanged()
 void ReaderSignInDialog::on_buttonBox_accepted()
 {
     m_reader_id = ui->idLineEdit->text();
-    QSqlQuery query;
-    query.exec("SELECT password FROM reader "
-               "WHERE reader_id = " + m_reader_id);
+    QSqlQuery query{"SELECT password FROM reader "
+                    "WHERE reader_id = " + m_reader_id};
     query.next();
     QString password {query.value(0).toString()};
 

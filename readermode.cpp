@@ -104,14 +104,15 @@ void ReaderMode::on_tableView_activated(const QModelIndex &index)
 
 void ReaderMode::on_pushButton_clicked()
 {
-    QSqlQuery query{"INSERT INTO request (reader_id, inventoryed_id, request_date) VALUES ("
-                  + m_reader_id + ", "
-                  + ui->idComboBox->currentText() + ", "
-                  + "CURDATE())"};
+    QSqlQuery query;
+    query.prepare("INSERT INTO request (reader_id, inventoryed_id, request_date) VALUES ("
+                + m_reader_id + ", "
+                + ui->idComboBox->currentText() + ", "
+                + "CURDATE())");
 
     if (query.exec()) {
         QMessageBox::information(this, "Success", "The book was requested.");
     } else {
-        QMessageBox::critical(this, "Error", "The book was NOT requested.");
+        QMessageBox::critical(this, "Error", "The book was NOT requested.\nCheck connection to DB.");
     }
 }

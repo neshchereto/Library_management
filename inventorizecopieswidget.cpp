@@ -1,6 +1,7 @@
 #include "inventorizecopieswidget.h"
 #include "ui_inventorizecopieswidget.h"
 
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 #include <QMessageBox>
@@ -45,17 +46,15 @@ void InventorizeCopiesWidget::on_inventorizePushButton_clicked()
     const QString book_id {ui->idLabel->text()};
 
     bool ok {true};
+    QSqlQuery query;
     for (int i {}; i != ui->spinBox->value() && ok; ++i) {
-        QSqlQuery query;
         ok = query.exec("INSERT INTO card (book_id) "
                         "VALUES (" + book_id + ")");
     }
 
     if (ok) {
         QMessageBox::information(this, "Success", "Copies were inventorized.");
-
     } else {
-        QMessageBox::critical(this, "Error", "Error occured. "
-                                             "Some copies might be inventorized.");
+        QMessageBox::critical(this, "Error", query.lastError().text());
     }
 }

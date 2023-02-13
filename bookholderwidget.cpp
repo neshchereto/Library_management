@@ -1,6 +1,8 @@
 #include "bookholderwidget.h"
 #include "ui_bookholderwidget.h"
 
+#include <QMessageBox>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
 #include <QSortFilterProxyModel>
@@ -35,17 +37,19 @@ void BookHolderWidget::on_tableView_activated(const QModelIndex &index)
 {
     const QString reader_id {ui->tableView->model()->index(index.row(), 1).data().toString()};
 
-    QSqlQuery info_query;
-    info_query.exec("SELECT full_name, passport, address, mobile, birthday, entry_day "
-                    "FROM reader "
-                    "WHERE reader_id = " + reader_id);
-    info_query.next();
+    QSqlQuery info_query{"SELECT full_name, passport, address, mobile, birthday, entry_day "
+                         "FROM reader "
+                         "WHERE reader_id = " + reader_id};
 
-    ui->fullNameLabel->setText(info_query.value(0).toString());
-    ui->passportLabel->setText(info_query.value(1).toString());
-    ui->addressLabel ->setText(info_query.value(2).toString());
-    ui->mobileLabel  ->setText(info_query.value(3).toString());
-    ui->birthDayLabel->setText(info_query.value(4).toString());
-    ui->entryDayLabel->setText(info_query.value(5).toString());
+    if (info_query.next()) {
+        ui->fullNameLabel->setText(info_query.value(0).toString());
+        ui->passportLabel->setText(info_query.value(1).toString());
+        ui->addressLabel ->setText(info_query.value(2).toString());
+        ui->mobileLabel  ->setText(info_query.value(3).toString());
+        ui->birthDayLabel->setText(info_query.value(4).toString());
+        ui->entryDayLabel->setText(info_query.value(5).toString());
+    } else {
+        QMessageBox::critical(this, "Error", info_query.lastError().text());
+    }
 }
 

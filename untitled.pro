@@ -14,8 +14,8 @@ SOURCES += \
     bookholderwidget.cpp \
     bookreturnwidget.cpp \
     dbsetup.cpp \
+    inventorizebookwidget.cpp \
     inventorizecopieswidget.cpp \
-    inventorydialog.cpp \
     librarianmode.cpp \
     main.cpp \
     readerinfowidget.cpp \
@@ -29,8 +29,8 @@ HEADERS += \
     bookholderwidget.h \
     bookreturnwidget.h \
     dbsetup.h \
+    inventorizebookwidget.h \
     inventorizecopieswidget.h \
-    inventorydialog.h \
     librarianmode.h \
     readerinfowidget.h \
     readermode.h \
@@ -43,8 +43,8 @@ FORMS += \
     bookholderwidget.ui \
     bookreturnwidget.ui \
     dbsetup.ui \
+    inventorizebookwidget.ui \
     inventorizecopieswidget.ui \
-    inventorydialog.ui \
     librarianmode.ui \
     readerinfowidget.ui \
     readermode.ui \

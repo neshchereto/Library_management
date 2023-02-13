@@ -36,10 +36,9 @@ void ReaderInfoWidget::on_readersTableView_activated(const QModelIndex &index)
 {
     const QString reader_id {ui->readersTableView->model()->index(index.row(), 0).data().toString()};
 
-    QSqlQuery query;
-    query.exec("SELECT full_name, passport, address, mobile, birthday, entry_day "
-               "FROM reader "
-               "WHERE reader_id = " + reader_id);
+    QSqlQuery query{"SELECT full_name, passport, address, mobile, birthday, entry_day "
+                    "FROM reader "
+                    "WHERE reader_id = " + reader_id};
     query.next();
     ui->fullNameLabel->setText(query.value(0).toString());
     ui->passportLabel->setText(query.value(1).toString());

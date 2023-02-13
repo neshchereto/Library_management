@@ -46,24 +46,24 @@ void RegistrationDialog::onTextChanged()
 
 void RegistrationDialog::on_buttonBox_accepted()
 {
-    QSqlQuery query{"INSERT INTO reader (full_name, passport, address, mobile, birthday, entry_day, password)"
-                    "VALUES ('" + ui->fullNameLineEdit->text() + "', '"
-                                + ui->passportLineEdit->text() + "', '"
-                                + ui->addressLineEdit ->text() + "', '"
-                                + ui->mobileLineEdit  ->text() + "', '"
-                                + ui->birthdayLineEdit->text() + "', "
-                                + "CURDATE(), '"
-                                + ui->passwordLineEdit->text() + "')"};
+    QSqlQuery query;
+    query.prepare("INSERT INTO reader (full_name, passport, address, mobile, birthday, entry_day, password)"
+                  "VALUES ('" + ui->fullNameLineEdit->text() + "', '"
+                              + ui->passportLineEdit->text() + "', '"
+                              + ui->addressLineEdit ->text() + "', '"
+                              + ui->mobileLineEdit  ->text() + "', '"
+                              + ui->birthdayLineEdit->text() + "', "
+                              + "CURDATE(), '"
+                              + ui->passwordLineEdit->text() + "')");
     // query.exec() returns true if inserted, false if not
     if (query.exec()) {
-        QSqlQuery query2;
         // passport is unique value, so I use it to find reader_id
-        query2.exec("SELECT reader_id FROM reader "
-                    "WHERE passport = '" + ui->passportLineEdit->text() + "'");
+        QSqlQuery query2{"SELECT reader_id FROM reader "
+                         "WHERE passport = '" + ui->passportLineEdit->text() + "'"};
         query2.next();
         QMessageBox::information(this, "Success", "Account was created."
                                                   "\nYour reader id is "
-                                                + query2.value(0).toString() + ".");
+                                                  + query2.value(0).toString() + ".");
     } else {
         QMessageBox::critical(this, "Error", query.lastError().text());
     }
