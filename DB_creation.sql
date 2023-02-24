@@ -72,11 +72,12 @@ VALUES
 (8, 'Language. Linguistics. Fiction.'),
 (9, 'Geography. Biography. History');
 
-DROP TABLE return_table;
-DROP TABLE request;
-DROP TABLE reader;
-DROP TABLE card;
-DROP TABLE author_book;
-DROP TABLE author;
-DROP TABLE book;
-DROP TABLE udk_thematic;
+-- TO DELETE INFORMATION USE
+-- DROP TABLE return_table;
+-- DROP TABLE request;
+-- DROP TABLE reader;
+-- DROP TABLE card;
+-- DROP TABLE author_book;
+-- DROP TABLE author;
+-- DROP TABLE book;
+-- DROP TABLE udk_thematic;
