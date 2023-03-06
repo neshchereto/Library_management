@@ -1,3 +1,5 @@
+DROP   DATABASE IF EXISTS library_management;
+CREATE DATABASE library_management;
 use library_management;
 
 CREATE TABLE udk_thematic (
@@ -71,13 +73,3 @@ VALUES
 (7, 'Art. Architecture. Games. Sport'),
 (8, 'Language. Linguistics. Fiction.'),
 (9, 'Geography. Biography. History');
-
--- TO DELETE INFORMATION USE
--- DROP TABLE return_table;
--- DROP TABLE request;
--- DROP TABLE reader;
--- DROP TABLE card;
--- DROP TABLE author_book;
--- DROP TABLE author;
--- DROP TABLE book;
--- DROP TABLE udk_thematic;
